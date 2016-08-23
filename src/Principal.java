@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -36,6 +39,7 @@ public class Principal extends javax.swing.JFrame {
         txtTra = new javax.swing.JTextField();
         txtPed = new javax.swing.JTextField();
         cmdCalcular = new javax.swing.JButton();
+        cmdBorrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,6 +47,17 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel1.setText("Ingrese Presupuesto Anual Hospital");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 180, 20));
+
+        txtPres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPresActionPerformed(evt);
+            }
+        });
+        txtPres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPresKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtPres, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 150, -1));
 
         jLabel2.setText("Presupueto Ginecologia");
@@ -53,8 +68,14 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel4.setText("Presupuesto Pedriatria");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 170, 20));
+
+        txtGin.setEditable(false);
         jPanel1.add(txtGin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 150, -1));
+
+        txtTra.setEditable(false);
         jPanel1.add(txtTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 150, -1));
+
+        txtPed.setEditable(false);
         jPanel1.add(txtPed, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 150, -1));
 
         cmdCalcular.setText("Calcular");
@@ -64,6 +85,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
+
+        cmdBorrar.setText("Borrar");
+        cmdBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBorrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 80, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,6 +117,11 @@ public class Principal extends javax.swing.JFrame {
         String gin, tra, ped;
         double Pres, gine, trau, pedi;
         
+        if (txtPres.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite por favor el presupuesto", "Error", JOptionPane.ERROR_MESSAGE);
+            txtPres.requestFocusInWindow();
+        } else {
+        
         Pres = Double.parseDouble(txtPres.getText());
         
         gine = Pres * 0.4;
@@ -101,7 +135,33 @@ public class Principal extends javax.swing.JFrame {
         txtGin.setText(gin);
         txtTra.setText(tra);
         txtPed.setText(ped);
+        }
     }//GEN-LAST:event_cmdCalcularActionPerformed
+
+    private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
+        // TODO add your handling code here:
+        txtPres.setText("");
+        txtGin.setText("");
+        txtPed.setText("");
+        txtTra.setText("");
+        txtPres.requestFocusInWindow();
+        
+    }//GEN-LAST:event_cmdBorrarActionPerformed
+
+    private void txtPresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPresKeyTyped
+        // TODO add your handling code here:
+        
+        char c = evt.getKeyChar();
+         if (!Character.isDigit(c)) {
+              getToolkit().beep();
+              evt.consume();
+         }
+        
+    }//GEN-LAST:event_txtPresKeyTyped
+
+    private void txtPresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,6 +199,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cmdBorrar;
     private javax.swing.JButton cmdCalcular;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
